@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Admin Undangan</title>
+<style>
+:root{--b:#3a2a20;--bg:#f4efe7;--c:#fff;--l:#d9cdb8}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,Segoe UI,Arial;background:var(--bg);color:#222}
+header{position:sticky;top:0;z-index:5;background:var(--b);color:#fff;display:flex;gap:8px;align-items:center;padding:10px 14px;flex-wrap:wrap}
+header b{flex:1}button{font:inherit;cursor:pointer;border:0;border-radius:8px;padding:8px 14px;background:var(--b);color:#fff}
+header button{background:#6b4e3a}button.g{background:#eee;color:#333}button.s{background:#2e7d32}
+main{max-width:760px;margin:0 auto;padding:14px}.box{background:var(--c);border-radius:12px;padding:16px;margin:0 0 14px;box-shadow:0 1px 4px #0002}
+h2{margin:0 0 10px;font-size:16px;color:var(--b)}.f{margin:0 0 12px}label{display:block;font-weight:600;font-size:12px;margin:0 0 4px}
+input,textarea{width:100%;padding:9px;border:1px solid var(--l);border-radius:8px;font:inherit;background:#fffdf9}
+.it{border:1px dashed var(--l);border-radius:10px;padding:10px;margin:0 0 10px}.it>b{margin-right:8px}
+.im{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.im img{width:70px;height:70px;object-fit:cover;border-radius:8px;border:1px solid var(--l)}
+.gl{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}.gl div{position:relative}.gl img{width:84px;height:84px;object-fit:cover;border-radius:8px}.gl button{position:absolute;top:2px;right:2px;padding:0 7px;border-radius:50%}
+.tabs{display:flex;gap:6px;margin:0 0 12px}.tabs button{background:#e6dccb;color:var(--b)}.tabs button.on{background:var(--b);color:#fff}
+#login{max-width:340px;margin:12vh auto;text-align:center}#login input{margin:0 0 10px}
+table{width:100%;border-collapse:collapse}td,th{padding:6px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+#msg{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:10px;display:none;z-index:9}
+.hint{font-size:12px;color:#777;margin:4px 0 0}
+</style></head><body>
+<div id="login" class="box"><h2>Admin Undangan</h2><input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Password"><button id="go" style="width:100%">Masuk</button><p class="hint" id="lerr"></p></div>
+<div id="app" hidden>
+<header><b>Admin Undangan</b><a href="/" target="_blank" style="color:#fff">Lihat undangan ↗</a><button id="save" class="s">Simpan</button><button id="out">Keluar</button></header>
+<main><div class="tabs"><button data-t="c" class="on">Konten</button><button data-t="w">Ucapan</button><button data-t="r">RSVP</button></div><div id="view"></div></main></div>
+<div id="msg"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="/config.js"></script><script src="/admin/defaults.js"></script><script src="/admin/admin.js"></script>
+</body></html>
