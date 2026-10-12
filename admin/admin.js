@@ -45,7 +45,8 @@ async function rsvp(){const {data}=await sb.from('rsvp').select('*').order('crea
  $$('[data-r]').forEach(b=>b.onclick=async()=>{await sb.from('rsvp').delete().eq('id',b.dataset.r);rsvp()})}
 async function load(){const {data}=await sb.from('invitation').select('data').eq('id',1).maybeSingle();D={...DEF,...((data&&data.data)||{})};draw()}
 async function show(sess){$('#login').hidden=!!sess;$('#app').hidden=!sess;if(sess)load()}
-$('#go').onclick=async()=>{const {error}=await sb.auth.signInWithPassword({email:$('#em').value.trim(),password:$('#pw').value});$('#lerr').textContent=error?'Email atau password salah':''};
+$('#go').onclick=async()=>{const u=$('#em').value.trim().toLowerCase(),e=$('#lerr');if(/YOUR/.test(SB.url)){e.textContent='config.js belum diisi URL dan anon key Supabase';return}
+ e.textContent='Memproses...';const {error}=await sb.auth.signInWithPassword({email:u.includes('@')?u:u+'@admin.com',password:$('#pw').value});e.textContent=error?(error.message==='Invalid login credentials'?'Username atau password salah':error.message):''};
 $('#pw').onkeydown=e=>{if(e.key==='Enter')$('#go').click()};
 $('#out').onclick=()=>sb.auth.signOut();
 $('#save').onclick=async()=>{const {error}=await sb.from('invitation').upsert({id:1,data:D,updated_at:new Date().toISOString()});toast(error?'Gagal menyimpan: '+error.message:'Tersimpan ✓ - undangan sudah diperbarui')};

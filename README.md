@@ -5,7 +5,7 @@ Situs statis tanpa build. Data disimpan di Supabase, halaman admin ada di `/admi
 ## 1. Supabase
 1. Buat project di supabase.com.
 2. **SQL Editor** > jalankan `supabase/schema.sql`, lalu `supabase/seed.sql`.
-3. **Authentication > Users > Add user**: buat email dan password admin (centang *Auto Confirm*).
+3. Jalankan `supabase/admin-user.sql` di SQL Editor. Login admin: username `admin`, password `admin123` (segera ganti, lihat komentar di file itu).
 4. **Authentication > Sign In / Providers**: matikan **Allow new users to sign up** (penting: semua akun terdaftar dianggap admin).
 5. **Settings > API**: salin *Project URL* dan *anon public key* ke `config.js`.
 

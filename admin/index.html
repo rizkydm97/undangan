@@ -19,7 +19,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:6px;border-bottom:1px so
 #msg{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:10px;display:none;z-index:9}
 .hint{font-size:12px;color:#777;margin:4px 0 0}
 </style></head><body>
-<div id="login" class="box"><h2>Admin Undangan</h2><input id="em" type="email" placeholder="Email"><input id="pw" type="password" placeholder="Password"><button id="go" style="width:100%">Masuk</button><p class="hint" id="lerr"></p></div>
+<div id="login" class="box"><h2>Admin Undangan</h2><input id="em" type="text" placeholder="Username" autocomplete="username" autocapitalize="none"><input id="pw" type="password" placeholder="Password"><button id="go" style="width:100%">Masuk</button><p class="hint" id="lerr"></p></div>
 <div id="app" hidden>
 <header><b>Admin Undangan</b><a href="/" target="_blank" style="color:#fff">Lihat undangan ↗</a><button id="save" class="s">Simpan</button><button id="out">Keluar</button></header>
 <main><div class="tabs"><button data-t="c" class="on">Konten</button><button data-t="w">Ucapan</button><button data-t="r">RSVP</button></div><div id="view"></div></main></div>
