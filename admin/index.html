@@ -1,28 +1,67 @@
 <!DOCTYPE html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
 <title>Admin Undangan</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--b:#3a2a20;--bg:#f4efe7;--c:#fff;--l:#d9cdb8}
-*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,Segoe UI,Arial;background:var(--bg);color:#222}
-header{position:sticky;top:0;z-index:5;background:var(--b);color:#fff;display:flex;gap:8px;align-items:center;padding:10px 14px;flex-wrap:wrap}
-header b{flex:1}button{font:inherit;cursor:pointer;border:0;border-radius:8px;padding:8px 14px;background:var(--b);color:#fff}
-header button{background:#6b4e3a}button.g{background:#eee;color:#333}button.s{background:#2e7d32}
-main{max-width:760px;margin:0 auto;padding:14px}.box{background:var(--c);border-radius:12px;padding:16px;margin:0 0 14px;box-shadow:0 1px 4px #0002}
-h2{margin:0 0 10px;font-size:16px;color:var(--b)}.f{margin:0 0 12px}label{display:block;font-weight:600;font-size:12px;margin:0 0 4px}
-input,textarea{width:100%;padding:9px;border:1px solid var(--l);border-radius:8px;font:inherit;background:#fffdf9}
-.it{border:1px dashed var(--l);border-radius:10px;padding:10px;margin:0 0 10px}.it>b{margin-right:8px}
-.im{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.im img{width:70px;height:70px;object-fit:cover;border-radius:8px;border:1px solid var(--l)}
-.gl{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}.gl div{position:relative}.gl img{width:84px;height:84px;object-fit:cover;border-radius:8px}.gl button{position:absolute;top:2px;right:2px;padding:0 7px;border-radius:50%}
-.tabs{display:flex;gap:6px;margin:0 0 12px}.tabs button{background:#e6dccb;color:var(--b)}.tabs button.on{background:var(--b);color:#fff}
-#login{max-width:340px;margin:12vh auto;text-align:center}#login input{margin:0 0 10px}
-table{width:100%;border-collapse:collapse}td,th{padding:6px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
-#msg{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:10px;display:none;z-index:9}
-.hint{font-size:12px;color:#777;margin:4px 0 0}
+:root{--ink:#1f1a17;--mut:#7d7469;--bg:#ece5da;--top:#f6f2ec;--card:#fff;--line:#e3dacb;--gold:#b08d57;--ok:#0c6b4d;--bad:#b3141c}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.5 Jost,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:96px}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;margin:0}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:9px 16px;background:var(--ink);color:#fff;transition:transform .12s,opacity .2s}
+button:active{transform:scale(.97)}button:disabled{opacity:.5;cursor:default}
+button.g{background:#eee7db;color:var(--ink)}button.o{background:transparent;color:var(--ink);border:1px solid #cfc4b2}button.d{background:transparent;color:var(--bad);padding:4px 8px}
+.top{background:var(--top);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.top .in{max-width:880px;margin:0 auto;padding:14px 16px 10px}
+.hd{display:flex;align-items:flex-start;gap:10px}.hd>div{flex:1}
+.hd h1{font-size:26px;line-height:1.1}.hd small{color:var(--mut);font-size:11px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:12px 0 2px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;background:#e9e1d5;color:#5a5047;border-radius:999px;padding:7px 15px;font-size:13px}
+.tabs button.on{background:var(--ink);color:#fff}
+main{max-width:880px;margin:0 auto;padding:18px 16px}
+.page-h{margin:0 0 14px}.page-h h2{font-size:28px}.page-h p{margin:2px 0 0;color:var(--mut)}
+.box{background:var(--card);border-radius:16px;padding:18px;margin:0 0 16px;box-shadow:0 1px 3px #0001}
+.box>h3{font-size:21px;margin:0 0 4px}.box>.sub{color:var(--mut);font-size:12px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.grid .full{grid-column:1/-1}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+.f{margin:0 0 14px}label{display:block;font-weight:500;font-size:12px;color:#4d443b;margin:0 0 5px}
+.hint{font-size:11px;color:var(--mut);margin:4px 0 0}
+input,textarea,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fdfbf7;color:var(--ink)}
+input:focus,textarea:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px #b08d5733}
+.ph{display:flex;gap:12px;align-items:center;border:1px dashed #cfc4b2;border-radius:14px;padding:10px;background:#fdfbf7}
+.ph .pv{width:84px;height:84px;border-radius:10px;background:#efe8dc center/cover no-repeat;flex:none;display:grid;place-items:center;color:#aaa;font-size:11px;text-align:center}
+.ph .pv.logo,.ph .pv.qr{background-size:contain;background-color:#fff;border:1px solid var(--line)}
+.ph .bt{display:flex;gap:8px;flex-wrap:wrap}
+.it{border:1px solid var(--line);border-radius:14px;padding:14px;margin:0 0 12px;background:#fdfbf7}
+.it-h{display:flex;align-items:center;margin:0 0 10px}.it-h b{flex:1;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500}
+.gl{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin:0 0 10px}
+.gl>div{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#eee}.gl img{width:100%;height:100%;object-fit:cover}
+.gl button{position:absolute;top:4px;right:4px;width:24px;height:24px;padding:0;border-radius:50%;background:#000b}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--top);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar .in{max-width:880px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.bar .save{flex:1;padding:14px;letter-spacing:.2em;font-size:12px;font-weight:600;text-transform:uppercase;border-radius:6px}
+.bar .st{font-size:12px;color:var(--mut);min-width:0}.bar .st.dirty{color:#b5600a}
+.tot{background:#e8fbf1;border:1px solid #b6ecd2;border-radius:18px;text-align:center;padding:20px;margin:0 0 14px}
+.tot small{display:block;letter-spacing:.12em;text-transform:uppercase;color:#2f8e68;font-size:12px}.tot b{display:block;font-size:56px;line-height:1.1;color:var(--ok);font-weight:600}.tot span{color:#2f8e68}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 14px}
+.stats div{background:#fff;border-radius:14px;padding:14px;text-align:center}.stats small{display:block;color:var(--mut);font-size:11px;letter-spacing:.1em;text-transform:uppercase}.stats b{font-size:30px;font-weight:600}
+.lst{background:#fff;border-radius:14px;margin:0 0 14px;overflow:hidden}
+.lst>h4{margin:0;padding:14px 16px;font-weight:600;font-size:16px}.lst.y>h4{background:#e8fbf1;color:var(--ok)}.lst.n>h4{background:#fdecec;color:var(--bad)}
+.lst .row{display:flex;align-items:center;gap:10px;padding:11px 16px;border-top:1px solid #f0ebe2}.lst .row>div{flex:1}.lst .row small{color:var(--mut)}
+.lst .row .no{width:24px;color:var(--mut);font-size:12px}
+.acts{display:flex;gap:8px}
+.wi{padding:14px 0;border-bottom:1px solid #f0ebe2;display:flex;gap:12px}.wi:last-child{border:0}.wi>div{flex:1}.wi p{margin:4px 0;white-space:pre-wrap;word-break:break-word}.wi small{color:var(--mut)}
+.empty{padding:26px;text-align:center;color:var(--mut)}
+#login{max-width:360px;margin:12vh auto;text-align:center;padding:30px 24px}#login h1{font-size:34px;margin-bottom:4px}#login p{color:var(--mut);margin:0 0 18px}#login input{margin:0 0 10px}#login .hint{color:var(--bad);min-height:18px}
+#msg{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 18px;border-radius:12px;display:none;z-index:99;max-width:90vw}
 </style></head><body>
-<div id="login" class="box"><h2>Admin Undangan</h2><input id="em" type="text" placeholder="Username" autocomplete="username" autocapitalize="none"><input id="pw" type="password" placeholder="Password"><button id="go" style="width:100%">Masuk</button><p class="hint" id="lerr"></p></div>
+<div id="login" class="box"><h1>Admin Undangan</h1><p>Masuk untuk mengelola undangan</p><input id="em" type="text" placeholder="Username" autocomplete="username" autocapitalize="none"><input id="pw" type="password" placeholder="Password" autocomplete="current-password"><button id="go" style="width:100%">Masuk</button><p class="hint" id="lerr"></p></div>
 <div id="app" hidden>
-<header><b>Admin Undangan</b><a href="/" target="_blank" style="color:#fff">Lihat undangan ↗</a><button id="save" class="s">Simpan</button><button id="out">Keluar</button></header>
-<main><div class="tabs"><button data-t="c" class="on">Konten</button><button data-t="w">Ucapan</button><button data-t="r">RSVP</button></div><div id="view"></div></main></div>
+ <div class="top"><div class="in">
+  <div class="hd"><div><h1>Admin Undangan</h1><small>Mode: Supabase cloud</small></div><button class="o" id="view-inv">Lihat undangan</button><button class="o" id="out">Keluar</button></div>
+  <div class="tabs" id="tabs"></div></div></div>
+ <main id="view"></main>
+ <div class="bar" id="bar"><div class="in"><span class="st" id="st"></span><button class="save" id="save">Simpan ke Supabase</button><button class="o" id="reset">Reset</button></div></div>
+</div>
 <div id="msg"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="/config.js"></script><script src="/admin/defaults.js"></script><script src="/admin/admin.js"></script>

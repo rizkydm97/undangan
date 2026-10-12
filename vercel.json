@@ -1,4 +1,18 @@
 {
   "cleanUrls": true,
-  "rewrites": [{ "source": "/admin", "destination": "/admin/index.html" }]
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "{template.html,config.js}"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    }
+  ]
 }
