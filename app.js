@@ -7,8 +7,14 @@
   const br = t => esc(t).replace(/\n/g, '<br>');
   const ready = !!(C.url && C.key && !/YOUR/.test(C.url) && window.supabase);
   const sb = ready ? supabase.createClient(C.url, C.key) : null;
-  const done = () => document.documentElement.classList.remove('loading');
-  setTimeout(done, 3500);
+  const rm = () => document.documentElement.classList.remove('loading');
+  // tampilkan cover setelah font + gambar cover siap (maks 2,5 dtk), supaya tidak ada foto/nama yang muncul loncat
+  const done = () => {
+    const w = $$('#cover img').filter(i => !i.complete).map(i => new Promise(r => { i.onload = i.onerror = r; }));
+    if (document.fonts && document.fonts.ready) w.push(document.fonts.ready);
+    Promise.race([Promise.all(w), new Promise(r => setTimeout(r, 2500))]).then(rm);
+  };
+  setTimeout(rm, 4000);
 
   let CFG = {};            // data undangan
   let guests = 1, attend = 1;

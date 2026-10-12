@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Undangan Pernikahan</title>
-<script>document.documentElement.classList.add("loading")</script>
+<script>document.documentElement.classList.add("loading","cv-on")</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@400;600&family=Amiri:wght@400;700&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
@@ -130,7 +130,8 @@ footer{padding-bottom:96px}
 /* ===== COVER mewah: masuk ===== */
 @property --g{syntax:"<percentage>";inherits:false;initial-value:0%}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-#cover{transition:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(50% - var(--g)),transparent calc(50% - var(--g)),transparent calc(50% + var(--g)),#000 calc(50% + var(--g)));mask-image:linear-gradient(90deg,#000 calc(50% - var(--g)),transparent calc(50% - var(--g)),transparent calc(50% + var(--g)),#000 calc(50% + var(--g)))}
+#cover{transition:none}
+#cover.open{-webkit-mask-image:linear-gradient(90deg,#000 calc(50% - var(--g)),transparent calc(50% - var(--g)),transparent calc(50% + var(--g)),#000 calc(50% + var(--g)));mask-image:linear-gradient(90deg,#000 calc(50% - var(--g)),transparent calc(50% - var(--g)),transparent calc(50% + var(--g)),#000 calc(50% + var(--g)))}
 #cover .wave{animation:fadeIn 1.2s both}
 #cover .cv .photo{clip-path:inset(0 50% 0 50%);animation:cvOpen 1.1s .2s cubic-bezier(.22,1,.36,1) forwards,beat 3.2s ease-in-out 4.2s infinite}
 @keyframes cvOpen{to{clip-path:inset(0 0 0 0)}}
@@ -318,6 +319,28 @@ section.vis .wayang.r[data-fx]{animation:wyIn2R 1.7s .35s cubic-bezier(.22,1,.36
 .thx .cp{font-size:30px;color:var(--gold);margin:6px 0 18px}
 .thx .btn{width:100%;justify-content:center;border-radius:4px;padding:13px;letter-spacing:.25em;font-size:10px}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* ================= PERBAIKAN V3: halus di HP ================= */
+/* cover: tinggi tetap (viewport besar), tidak loncat saat bar browser muncul/hilang */
+#cover{inset:auto;top:0;left:0;right:0;height:100vh;height:100lvh;overflow:hidden;contain:layout paint}
+/* animasi cover baru jalan setelah halaman siap (tidak habis di balik layar putih) */
+.loading #cover *,.loading #cover *::before,.loading #cover *::after{animation-play-state:paused!important}
+/* undangan di balik cover tidak perlu bergerak dulu */
+.cv-on main *,.cv-on main *::before,.cv-on main *::after{animation-play-state:paused!important}
+/* ornamen yang bergerak terus: naik ke layer GPU sendiri */
+.wave img,.wayang,.wing,.cloud,.cl,.disc,#cover .hv{will-change:transform;backface-visibility:hidden}
+#cover .hv{will-change:translate,opacity}
+/* foto cover: dua belah sedikit tumpang tindih, tanpa garis tengah */
+#cover .cv .hv.l{clip-path:inset(0 48.5% 0 0)}
+#cover .cv .hv.r{clip-path:inset(0 0 0 48.5%)}
+/* nama masuk: tanpa blur & letter-spacing (memicu layout/repaint tiap frame) -> naik halus + tersapu kiri ke kanan */
+@keyframes nameIn{from{opacity:0;transform:translate3d(0,16px,0);clip-path:inset(-16px 100% -16px -16px)}45%{opacity:1}to{opacity:1;transform:none;clip-path:inset(-16px)}}
+#cover h1.in{animation:nameIn 1.9s 3.4s cubic-bezier(.33,.9,.3,1) both;will-change:transform,opacity,clip-path}
+/* HP / layar sentuh: matikan blur pada elemen besar (berat saat scroll) */
+@media (hover:none),(max-width:520px){
+ .rv,.card.ev.rv,.gal .gi{filter:none!important}
+ .rv,.card.ev.rv,.gal .gi{transition-property:opacity,transform}
+}
 </style>
 </head>
 <body>
@@ -534,7 +557,7 @@ try{const t=new URLSearchParams(location.search).get('to');if(t)document.getElem
 // buka undangan
 const cover=document.getElementById('cover');
 document.body.style.overflow='hidden';
-document.getElementById('openBtn').onclick=()=>{cover.classList.add('open');document.body.style.overflow='';setTimeout(()=>cover.style.display='none',2500);(window.cfgReady||Promise.resolve()).then(()=>setTimeout(boot,950))};
+document.getElementById('openBtn').onclick=()=>{document.documentElement.classList.remove('cv-on');cover.classList.add('open');document.body.style.overflow='';setTimeout(()=>cover.style.display='none',2500);(window.cfgReady||Promise.resolve()).then(()=>setTimeout(boot,950))};
 // grup mempelai
 (function(){const c=document.querySelector('#couple .card');if(!c)return;let g=null,i=0;
  [...c.children].forEach(k=>{
