@@ -322,7 +322,9 @@ section.vis .wayang.r[data-fx]{animation:wyIn2R 1.7s .35s cubic-bezier(.22,1,.36
 
 /* ================= PERBAIKAN V3: halus di HP ================= */
 /* cover: tinggi tetap (viewport besar), tidak loncat saat bar browser muncul/hilang */
-#cover{inset:auto;top:0;left:0;right:0;height:100vh;height:100lvh;overflow:hidden;contain:layout paint}
+#cover{inset:0;min-height:100vh;min-height:100lvh;overflow:hidden}
+/* selama cover tampil, isi undangan di belakangnya disembunyikan total (tidak mengintip di bawah/atas) */
+.cv-on main,.cv-on footer,.cv-on nav,.cv-on .disc{visibility:hidden}
 /* animasi cover baru jalan setelah halaman siap (tidak habis di balik layar putih) */
 .loading #cover *,.loading #cover *::before,.loading #cover *::after{animation-play-state:paused!important}
 /* undangan di balik cover tidak perlu bergerak dulu */
